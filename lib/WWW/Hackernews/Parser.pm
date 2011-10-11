@@ -1,4 +1,4 @@
-package Hackernews::Parser;
+package WWW::Hackernews::Parser;
 
 use strict;
 use warnings;
@@ -160,7 +160,7 @@ B<Hackernews::Parser> - a Perl interface to Hackernews (L<http://news.ycombinato
 
 =head1 SYNOPSIS
 
-    use Hackernews::Parser;
+    use WWW::Hackernews::Parser;
     
     my $top_hash_ref = hn_parse( 'top', '1' );
     # equivalent to:
@@ -184,11 +184,11 @@ The only subroutine of B<Hackernews::Parser> is B<hn_parse>. It takes the follow
 
 =over 4
 
-=item * B<1. target> - This is what page to download the data from; is either C<top> or C<new>. Defaults to C<top>.
+=item 1. B<target> - This is what page to download the data from; is either C<top> or C<new>. Defaults to C<top>.
 
-=item * B<2. number> - This is the rank of the story. C<1> is the top story, and so on. Defaults to C<1>.
+=item 2. B<number> - This is the rank of the story. C<1> is the top story, and so on. Defaults to C<1>.
 
-=item * B<3. datum> - This is the name of the datum and hash key to be return (list follows. The default is C<all>, which returns the hash ref as a scalar.
+=item 3. B<datum> - This is the name of the datum and hash key to be return (list follows. The default is C<all>, which returns the hash ref as a scalar.
 
 =back
 
