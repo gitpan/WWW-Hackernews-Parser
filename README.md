@@ -1,6 +1,6 @@
 # NAME
 
-**Hackernews::Parser** - a Perl interface to [Hackernews](http://news.ycombinator.com/) stories and data.
+**WWW::Hackernews::Parser** - a Perl interface to [Hackernews](http://news.ycombinator.com/) stories and data.
 
 # SYNOPSIS
 

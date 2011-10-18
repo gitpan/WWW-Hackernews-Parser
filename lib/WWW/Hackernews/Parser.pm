@@ -28,7 +28,8 @@ sub hn_parse {
         return 0;
     }
 
-    if ( $html =~ m{
+    if (
+        $html =~ m{
     >\s*$num\.</td>\s*<td>\s*<center>\s*<a\s+id=up_
     (\d+) # $1 -> id
     \s+href="vote\?for=\g1&dir=up&whence=[%a-e0-9]+">\s*<img\s+src="http://yc
@@ -50,24 +51,30 @@ sub hn_parse {
     \s+
     (hour|minute) # $9 age_unit
     (s)?\s+ago\s+\|\s*<a\s+href="item\?id=\g1">\s*
-    (\d+) # $12 -> comments
+    (\d+) # $11 -> comments
     \s+comment(s)?\s*</a>
-        }ix ) {
+        }ix
+        )
+    {
 
-        $data->{'id'}       = $1;
-        $data->{'uri'}      = $2;
-        $data->{'desc'}     = $3;
-        $data->{'dom'}      = $4;
-        $data->{'score'}    = $5;
-        $data->{'user'}     = $7;
-        $data->{'age_qty'}  = $8;
-        $data->{'age_unit'} = $9;
-        $data->{'comments'} = $12;
+        $data->{ 'id' }       = $1;
+        $data->{ 'uri' }      = $2;
+        $data->{ 'desc' }     = $3;
+        $data->{ 'dom' }      = $4;
+        $data->{ 'score' }    = $5;
+        $data->{ 'user' }     = $7;
+        $data->{ 'age_qty' }  = $8;
+        $data->{ 'age_unit' } = $9;
+        $data->{ 'comments' } = $11;
+
+        # for debugging purposes
+        $data->{'pattern'} = 1;
 
 
-    }
-    elsif ( $html =~ m{
-    >\d+\.</td>\s*<td>\s*<center>\s*<a\s+id=up_
+    } ## end if ( $html =~ m{ ) (})
+    elsif (
+        $html =~ m{
+    >\s*$num\.</td>\s*<td>\s*<center>\s*<a\s+id=up_
     (\d+) # $1 id
     \s+href="vote\?for=\g1&dir=up&whence=[%a-e0-9]+">\s*<img\s+src="http://yc
     ombinator\.com/images/grayarrow\.gif"\s+
@@ -92,22 +99,27 @@ sub hn_parse {
     \s+
     (hour|minute) # $9 age_unit
     (s)\s+ago\s+\|\s*<a\s+href="item\?id=\g1">\s*discuss\s*</a>
-        }imx ) {
+        }imx
+        )
+    {
 
-        $data->{'id'}       = $1;
-        $data->{'uri'}      = $2;
-        $data->{'desc'}     = $3;
-        $data->{'dom'}      = $4;
-        $data->{'score'}    = $5;
-        $data->{'user'}     = $7;
-        $data->{'age_qty'}  = $8;
-        $data->{'age_unit'} = $9;
-        $data->{'comments'} =  0;
+        $data->{ 'id' }       = $1;
+        $data->{ 'uri' }      = $2;
+        $data->{ 'desc' }     = $3;
+        $data->{ 'dom' }      = $4;
+        $data->{ 'score' }    = $5;
+        $data->{ 'user' }     = $7;
+        $data->{ 'age_qty' }  = $8;
+        $data->{ 'age_unit' } = $9;
+        $data->{ 'comments' } = 0;
 
-    }
+        # for debugging purposes
+        $data->{'pattern'} = 2;
+    } ## end elsif ( $html =~ m{ )  [ if ( $html =~ m{ ) (})](})
 
-    elsif ( $html =~ m{
-        >\s*\d+\.\s*</td>\s*<td>\s*</td>\s*<td\s+class="title">\s*<a\s+href="
+    elsif (
+        $html =~ m{
+        >\s*$num\.\s*</td>\s*<td>\s*</td>\s*<td\s+class="title">\s*<a\s+href="
         item\?id=
         (\d+) # $1 id
         ">
@@ -118,16 +130,20 @@ sub hn_parse {
         \s+
         (hour|minute)(s)? # $4 age_unit
         \s+ago\s*</td>
-        }imx ) {
+        }imx
+        )
+    {
 
-        $data->{'id'}       = $1;
-        $data->{'uri'}      = 'http://news.ycombinator.com/item?id=' . $1;
-        $data->{'dom'}      = 'ycombinator.com';
-        $data->{'desc'}     = $2;
-        $data->{'age_qty'}  = $3;
-        $data->{'age_unit'} = $4;
+        $data->{ 'id' }       = $1;
+        $data->{ 'uri' }      = 'http://news.ycombinator.com/item?id=' . $1;
+        $data->{ 'dom' }      = 'ycombinator.com';
+        $data->{ 'desc' }     = $2;
+        $data->{ 'age_qty' }  = $3;
+        $data->{ 'age_unit' } = $4;
 
-    }
+        # for debugging purposes
+        $data->{'pattern'} = 3;
+    } ## end elsif ( $html =~ m{ )  [ if ( $html =~ m{ ) (})](})
 
     else {
         warn "Unable to match pattern";
@@ -180,7 +196,7 @@ B<Hackernews::Parser> - a Perl interface to Hackernews (L<http://news.ycombinato
 
 =head1 DESCRIPTION
 
-The only subroutine of B<Hackernews::Parser> is B<hn_parse>. It takes the following arguments:
+The only subroutine of B<WWW::Hackernews::Parser> is B<hn_parse>. It takes the following arguments:
 
 =over 4
 
@@ -231,4 +247,3 @@ Free Software Foundation; with no Invariant Sections, with
 no Front-Cover Texts, and with no Back-Cover Texts.
 
 =cut
-

@@ -1,6 +1,6 @@
 use Module::Build;
 my $build = Module::Build->new(
-    module_name => 'Hackernews::Parser',
+    module_name => 'WWW:Hackernews::Parser',
     dist_abstract => 'Extract data from Hackernews',
     dist_author => 'Daniel Bolton <dbb008@gmail.com>',
     license => 'gpl',

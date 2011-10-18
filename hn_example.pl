@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 
-use Hackernews::Parser;
+use WWW::Hackernews::Parser;
 
 my $hr = hn_parse();
 
